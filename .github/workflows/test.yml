@@ -1,0 +1,19 @@
+on:
+  pull_request:
+    branches:
+      - master
+env:
+  AUTOPKG_VERSION: 2.1
+
+name: AutokPkg Test
+jobs:
+  autopkg-test:
+    runs-on: macos-10.15
+    steps:
+    - name: Install AutoPkg
+      run: |
+        echo $(pwd)
+        wget https://github.com/autopkg/autopkg/releases/download/v2.1/autopkg-${{ env.AUTOPKG_VERSION }}.pkg
+        sudo /usr/sbin/installer -pkg autopkg-${{ env.AUTOPKG_VERSION }}.pkg -target /
+        which autopkg
+    - uses: actions/checkout@v2
